@@ -9,6 +9,6 @@ const a = 1.5,
 const sumOfNumbers = a + b;
 console.log(sumOfNumbers);
 
-const num = -1;
-console.log(-num);
+const num = - sumOfNumbers;
+console.log(num);
 
