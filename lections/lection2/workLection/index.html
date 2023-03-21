@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lection-2</title>
+</head>
+
+<body>
+	<!-- // События в JS -->
+	<!-- Примеры событий "unLINE" через аргумент onclick -->
+	<!-- 
+	<button onclick="alert('Товар добавлен в карзину')">Купить</button>
+	<a onclick="confirm('Закрыть диалог?')" href="#">Закрыть диалог</a>
+ -->
+
+	<script src="script.js"></script>
+
+	<script>
+
+		// Игра в загадки с помощью prompt и оператора ветвления if-else
+
+		// let userAnsver = prompt('замой и летом одним цветом');
+		/*
+				if (userAnsver === '') {
+					console.log('Where is your ansver , sobaka!?');
+				} else {
+					console.log(userAnsver);
+					if (userAnsver === 'елка') {
+						alert('Good!');
+					} else {
+						alert('No!');
+					}
+				}
+				 */
+		// Оператор ветвления if в else
+		/*
+				if (userAnsver === '') {
+					alert('Where is your ansver , sobaka!?');
+				} else if (userAnsver === 'елка') {
+					alert('Good!');
+					console.log(userAnsver);
+				} else {
+					alert('No!');
+				}
+				 */
+
+		// Тернарный оператор
+		//  (условие) ? ДА : НЕТ
+		/*
+		(userAnsver === 'елка') ? alert('Good!') : alert('No!');
+		 */
+		// Пример тернарного оператора в методе alert
+		// alert(2 > 3 ? 'sales' : 'no sales');
+
+		// alert((userAnsver === 'елка') ? ('Good!') : ('No!'));
+
+		// Пошаговая отладка кода в браузере
+		/*
+				if (userAnsver.toLowerCase() === 'елка') {
+					// Функция toLowerCase() - приводит строку к нижнему регитру
+					alert('Good!');
+				} else {
+					alert('No!');
+				}
+				 */
+
+		// Как перевести string в number
+
+		// let pass = prompt('Введите пароль :'); /* Если пользователь введёт цифры они будут в формате string ("123") */
+		// pass = Number(pass); /* Number - преобразовывает строку в числа (123)*/
+		// // pass = String(pass); /* String - преобразовывает числа в строку ("123")*/
+		// if (pass === 123) {
+		// 	alert('Пароль верный')
+		// } else {
+		// 	alert('Пароль не верный');
+		// }
+
+		// Укоротить запись
+		let pass = Number(prompt('Введите пароль :')); // любое значение будет сразу переведено в числовое
+		alert((pass === 123) ? 'Пароль верный' : ('Пароль не верный'));
+
+	</script>
+</body>
+
+</html>
