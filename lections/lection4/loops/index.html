@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Loops</title>
+</head>
+
+<body>
+	<!-- Счётчик кликов по кнопке -->
+	<button onclick="counterClickButton()">Click</button>
+	<!-- onclick="counterClickButton()" - aргумент к  кнопке запускающий функцию подсчёта кликов -->
+	<script src="script.js"></script>
+	<script>
+		let count = 0;
+		alert(`Вы нажали на кнопку ${count}раз!`)
+		function counterClickButton() {
+			alert(count++);
+			// так и не понял механику почему именно ++count...
+			console.log(count);
+		}
+	</script>
+</body>
+
+</html>
