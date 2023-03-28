@@ -14,3 +14,45 @@
  */
 
 
+const sum = (a, b) => {
+	return console.log(a + b);
+}
+const diff = (a, b) => {
+	const maxNum = Math.max(a, b);
+	const minNum = Math.min(a, b);
+	return console.log(maxNum - minNum);
+}
+const mult = (a, b) => {
+	return console.log(a * b);
+}
+const div = (a, b) => {
+	return console.log(parseFloat(a / b));
+}
+function calculate(num1, num2, operation) {
+	switch (operation) {
+		case '+':
+			sum(num1, num2);
+			break;
+		case '-':
+			diff(num1, num2);
+			break;
+		case '*':
+			mult(num1, num2);
+			break;
+		case '/':
+			div(num1, num2);
+			break;
+		default:
+			console.log('Oops');
+			break;
+	}
+}
+const a = +prompt('input number A');
+const b = +prompt('input number B');
+const userOperation = String(prompt('Choose one operation for your numbers: / * + - '));
+
+calculate(a, b, userOperation);
+alert('Result in console!');
+
+
+
