@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lection5</title>
+</head>
+
+<body>
+
+	<script src="script.js"></script>
+	<!-- 
+	<script>
+		// Пример обьекта
+		const product = { // тип обьекта и имя
+			name: 'table', // Ключ (свойство) : занчение 
+			productPrice: 2000
+		}
+		console.log(product);
+		const productNew = {
+			productImg: 'photo.png',
+			productText: 'Great Armchair',
+		}
+		let text = productNew.productText; // ключи можно записывать в переменные
+		console.log(text);
+		productNew.link = 'product/linkname.html' // Так добавзяются свойства и значения
+		productNew.link = 'catalog/linkname.html' // Так изменяются значения в уже имеющихся свойтвах
+		console.log(productNew); 
+	</script>
+ -->
+
+	<!-- 
+	<script>
+		// Хранение обьектов ( примитивные типы и обьеты)
+		const product = {
+			name: 'table',
+			productPrice: 2000
+		}
+		let productSale = product; // Так создаётся дубликат обьекта. productSale - это дубликат product
+		// После создания дубликата обьекта в переменной , все обращения и изменения к дубликату ведутся по ссылкам на область памяти оригинального обьекта. Дублируя новый обьект не создаётся.
+		console.log(productSale);
+		productSale.productPrice = 1500;
+		console.log('This is a sale' + productSale);
+		console.log(product);
+		let productNew = product;
+		productNew.text = 'lorem';
+		console.log(product); // {name: 'table', productPrice: 1500, text: 'lorem'}
+		console.log(productSale);  // {name: 'table', productPrice: 1500, text: 'lorem'}
+		console.log(productNew);  // {name: 'table', productPrice: 1500, text: 'lorem'}
+	</script>
+ -->
+
+	<!-- 
+	<script>
+		// Хранение обьектов . Процедурный подход  ( работа с функциями и обьетами)
+		const car = {
+			name: 'Audi',
+			model: 'A5',
+			year: 2023,
+			color: 'red',
+			peover: 249
+		};
+		function haveRoadTrip(myCar, distance) {
+			myCar.odometer += distance; //  myCar.odometer = myCar.odometer + distance ;
+		}
+		// Все изменения  в обьекте внесённые внутри функции будут действовать и после завершения функции.
+		// Callback функция , создающая ключ odometer в объекте , приходящем в параметр функции , со значением так же приходящем в параметры. Если ключа нет , то он создаётся , если есть , добавляются изменения.
+		haveRoadTrip(car, 150);
+		console.log(car.odometer);
+		// При этом все обращения через функцию вноят , через ссылки на область памяти обьекта , изменения в оригинале объекта
+	</script>
+ -->
+
+	<!-- 
+	<script>
+		// Методы ( функции внутри обьектов)
+		// this
+		// И использование функций для изменения сойств обьектов
+		const product = {
+			name: 'table',
+			productPrice: 2000,
+			count: 2, // Количество имеющихся товaров
+			userRegistered: false, // Свойство для провеки на регистрацию на странице
+			/* 
+						buy: function () {
+							// функция определяет куплен ли товар или нет по средствам условия if и счётчика товара в наличии count
+							// console.log('You bought this product');
+							if (product.count > 0) {
+								console.log('You bought this product');
+							} else {
+								console.log('This item cannot be added to cart');
+							}
+			 */
+			reg: function () { // свойство-функция , позволяющая изменить свойство регистрации
+				this.userRegistered = true;
+			},
+			countProduct: function () {
+				if (this.count > 0) { // Если товар есть ( != 0) то товар можно купить .
+					console.log('You can bought this product');
+				} else {
+					console.log('This item cannot be added to cart');
+				}
+			},
+			buyProduct: function () {
+				if (this.userRegistered) { // Если пользователь зарегистрирован то сообщение о покупке.
+					console.log('Item in cart');
+				} else {
+					console.log('Need registration');
+				}
+			}
+		}
+		// product.buy(); // Вызов функции обьекта.( по ключу)
+		product.buyProduct(); // выдаст, что нужно пройти регистрацию
+		product.reg(); // Поменяет свойство регистрации на ( зарегестрирован )
+		product.buyProduct(); // Добавит товар в корзину 
+
+
+		// this - указывает на область применения функции(В ДАННОМ ОБЬЕКТЕ).То есть это замена имени при обращении к обьекту.То есть если сменить имя обьекту, то при обращении через this метод будет работать внутри обьетка без точного имени при обращении.
+	</script>
+	 -->
+
+	<script>
+		// Пребор значений (for in) и обращение к ключу обьекта не через . а через []
+		const productTest = {
+			text: 'hello',
+			price: 1000
+		}
+		for (const key in productTest) {
+			// ForIn - при переборе , воспринимает ключи как строчные , поэтому при обращении к ключу используеются []
+			console.log(productTest[key]);
+			// hello
+			// 1000
+		}	
+	</script>
+</body>
+
+</html>
