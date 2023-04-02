@@ -8,3 +8,23 @@
 	 6. Если пользователь ответил второй раз неверно, даётся вторая подсказка
 	 7. Если ответил неверно, то в консоль выводится текст: “вы проиграли”
  */
+
+//1
+//2
+const riddles = {
+	question: 'Зимой и летом одним цветом',
+	answer: 'елка',
+	askQuestion: function () {
+		const userAnswer = prompt(this.question); // сюда приходит загадка и открывает поле ввода на странице
+		if (userAnswer.toLowerCase() === this.answer.toLowerCase()) {
+			alert('Good');
+		} else {
+			console.log('No!');
+			const hint1 = 'Это растёт в лесу'; // Подсказки при не совпадении с условием
+			const hint2 = 'Её нарежают на новый год';// Подсказки при не совпадении с условием
+			alert(hint1);
+			alert(hint2);
+		}
+	}
+};
+riddles.askQuestion(); // Вызов свойства объекта с функциональным выражением
