@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<title>Lection-6</title>
+</head>
+
+<body>
+	<h1 class="title">Lorem, ipsum dolor.</h1>
+	<h2 id="heading">Lorem ipsum dolor sit amet.</h2>
+	<ul class="ul">
+		<li class="list">text 1</li>
+		<li class="list">text 2</li>
+		<li class="list">text 3</li>
+	</ul>
+
+	<p class="text">Lorem, ipsum dolor.1</p>
+	<p class="text">Lorem, ipsum dolor.2</p>
+	<p class="text">Lorem, ipsum dolor.3</p>
+	<p class="text">Lorem, ipsum dolor.4</p>
+	<section class="my-heading"></section>
+
+
+	<!-- Как добавить элемент через клик -->
+	<button class="btn">Buy</button>
+	<!-- Блок для <p> созданного в JS -->
+	<div class="content">
+
+
+	</div>
+
+	<img class="img" src="photo.jpg" alt="photo">
+
+
+	<script src="script.js"></script>
+	<!-- Все привязки в <script> ( поиск элементка в HTML и запись его в переменную) пишут вначале. -->
+	<!-- 
+	<script>
+
+		// 
+		// Изменение контента уже существующего тега ( привязаться , добавить тект-контент)
+		const titleElement = document.querySelector('.title');
+		titleElement.textContent = 'New heading from JS';
+
+
+
+		// Привязка по тегу ( get ), имени класса ( get ), и id ( get )
+		const h1 = document.getElementsByTagName('h1');
+		console.log(h1);
+		const ulList = document.getElementsByClassName('list');
+		console.log(ulList);
+		// const heading2 = document.getElementById('heading'); // При обращении по id к элемнету html через метод getElementById важно записывать в аргументах только название без # 
+		// console.log(heading2);
+
+		// Привязка по классу в CSS через querySelector и querySelectorAll
+		// Эта запись означает : найди в документе селектор с именем .title и присвоить его в переменную.
+		const heading = document.querySelector('.title');
+		// const text = document.querySelector('.title + p'); // В этом случае JS словит только 1 тег с такам названием
+		const heading3 = document.querySelector('#heading');// А обращение к элементу по id через querySelector требудет # в имени.
+		console.log(heading3);
+		const ulListQs = document.querySelectorAll('.list'); // При обращении к тегам html через querySelectorAll и querySelector в имени дожна быть точка
+		console.log(ulListQs);
+
+		const text = document.querySelectorAll('.text');
+		// querySelectorAll - ловит все теги с таким именем
+		/* 
+		for (let i = 0; i < text.length; i++) {
+			console.log(text[i]);
+			// Чтобы вывести каждыйтег вконсоль с классом .text из переременной с масивом тегов .text , используем for
+		}
+		*/
+		// Для работы с массивами тегов больше подходит цикл forEach
+		text.forEach(element => { // text - это переменная с массивом тегов ( результат работы document.querySelectorAll()) , а в аргументах функциональное выражение (элемент массива => {действие})
+			console.log(element);// element - элемент массива содержащий тег html
+		});
+
+		console.log(heading);
+		console.log(text);
+
+		// Как добавить элемент на страцицу чере JS
+		const sectionElement = document.querySelector('section');
+		const headingElement = document.createElement('h3');
+		headingElement.textContent = 'My first heading';
+		sectionElement.appendChild(headingElement);
+		// Пример удлаения элемента через remove()
+		const heading2 = document.querySelector('#heading');
+		heading2.remove();
+
+	</script>
+ -->
+	<script>
+		const imgElement = document.querySelector('.img');
+
+		imgElement.onclick = function () {
+			imgElement.src = 'https://prophotos.ru/data/articles/0002/2622/image-rectangle_600_x.jpg';// При клине на изображение , она поменяет источник.
+		}
+
+		// Как добавить элемент через клик
+		const btnElement = document.querySelector('.btn');
+		const divContent = document.querySelector('.content');
+		// Привязываемя к блоку в HTML , специально созданного для <p> из JS
+		// Как добавить параграф с текстом при нажании на кнопку
+		const textElement = document.createElement('p');
+		// Создаём переменную с <p>
+		textElement.textContent = 'Many letters';
+		// В неё помещаем текст
+
+		btnElement.onclick = function () {
+			btnElement.textContent = "Item in cart";// Поменяет кнопке назание при клике
+			divContent.appendChild(textElement); // В момент нажатия на кнопку , в родительском блоке HTML. страницы создаётся дочерный элемент ( с блоком <p> в котором уже прискоен текст)
+		}
+
+	</script>
+</body>
+
+</html>
