@@ -7,9 +7,119 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="style.css">
 	<title>Lection-7</title>
+	<style>
+		/* Способ динамического управления стилями в JS. ( из раздела <head>) */
+		.heading {
+			color: white;
+			text-transform: uppercase;
+			background-color: #ccc;
+			text-align: center;
+		}
+	</style>
 </head>
 
 <body>
+	<!-- Добавление стилей из JS -->
+	<!-- Не нужно использовать оба способа добавления стилей ( <head JS> и 'inLine Js') одновременно -->
+	<!-- <div class="content"></div> -->
+
+	<!-- 
+	<script>
+		// Стили InlineJs имеют более высокий приоритет
+		const content = document.querySelector('.content');
+		const h1El = document.createElement('h1');
+
+		/*
+				h1El.style.backgroundColor = '#ccc'; // При добавлении style ( inline ) строки со свойствами лучше группировать рядом с элементом.
+				h1El.style.textAlign = 'center';
+		 */
+				h1El.textContent = 'h1 Element';
+				// Способ динамического управления стилями в JS. ( из раздела <head>)
+				h1El.setAttribute('class', 'heading');
+		
+				const imgEl = document.createElement('img');
+				imgEl.src = 'photo.jpg'; // простой способ дабавления трибута ( src)
+				imgEl.setAttribute('alt', 'Это Фотография'); // Добавления атрибута через метов setAttribute(). В аргументак название тега и контент	 
+		
+		
+				content.appendChild(h1El);
+				content.appendChild(imgEl);
+	</script>
+	 -->
+
+
+	<!-- HTMLCollection & NoneList -->
+
+	<ul class="menu">
+		<li class="menu__list">
+			<a href="#" class="menu__link">link-1</a>
+		</li>
+		<li class="menu__list">
+			<a href="#" class="menu__link">link-2</a>
+		</li>
+		<li class="menu__list">
+			<a href="#" class="menu__link">link-3</a>
+		</li>
+		<li class="menu__list">
+			<a href="#" class="menu__link">link-4</a>
+		</li>
+	</ul>
+
+	<script>
+		/*
+		// HTMLCollection & NoneList
+		const liEl = document.querySelectorAll('.menu__list'); // NodeList - массив всех li с этим классом
+		const liElOne = document.querySelector('.menu__list'); // только элемент HTML в переменной
+		const linkEl = document.querySelector('.menu__link'); // Обращения к элементу без дочерних
+		const menuEl = document.querySelector('.menu'); // Обращения к элементу без дочерних
+		// Вывести на экран все элементы HTMLCollection через цикл ForEach
+		menuEl.childNodes.forEach(element => { // Если элемент нужно меребрать через цикл , то он должен быть NodeListом (.childNodes)
+			console.log(element);
+		});
+		 */
+		/*
+		// Обращения к общему узлу через 1 элемент
+				console.log(liEl);
+				// console.log(liElOne.parentNode.childNodes);
+				console.log(liElOne.parentNode.children);
+				// parentNode - запишет в переменную родительский элемент со всеми его дочерними
+				// childNodes - запишет в переменную ВАОБЩЕ все элементы в виде массива NodeList
+				// children - запишет в переменную HTMLCollection только дочерних элементов
+		 */
+		/*
+				// Обращения к элементу без дочерних
+				console.log(linkEl.children);// HTMLCollection lenght 0
+				console.log(linkEl.childNodes);//  NideList   lenght 1 ( и определяет тип значения в элементе)
+		 */
+
+		/*
+				console.log(menuEl.children);// HTMLCollection(4)
+				console.log(menuEl.childNodes);// NodeList(9)
+				 */
+
+	</script>
+
+	<script>
+		// Практика применения Node и Element , для поиска элемента в DOM дереве
+		const liElOne = document.querySelector('.menu__list'); // только элемент HTML в переменной
+		const linkEl = document.querySelector('.menu__link'); // Обращения к элементу без дочерних
+		const menuEl = document.querySelector('.menu'); // Обращения к элементу без дочерних
+
+
+		// console.log(liElOne.parentElement.lastChild);
+		// Понял только что .lastElementChild находит только последний элемент а .lastChild всё что в коде (#Text)
+
+		// Обращения к элементу через :firstElementChild и  lastElementChild
+		console.log(liElOne.parentElement.firstElementChild);
+		console.log(liElOne.parentElement.lastElementChild);
+		// Обращения к элементу через .previousElementSibling и .nextElementSibling
+		console.log(liElOne.previousElementSibling); // null так как в переменной первый элемент, а перед ним нет элементов на одном уровне вложенности     
+		// previous - это предыдущий   Sibling - это один уровень вложенности next - это следующий
+		console.log(liElOne.nextElementSibling);//  По аналогии - Следующий элемент на одном уровне вложенности 
+		console.log(liElOne.nextElementSibling.nextElementSibling);// Найдёт элемент ( через один )
+
+		console.log(liElOne.parentElement.lastElementChild.previousElementSibling);// Находи родительский элемент , затем в нём последный элемент , а затем от поледнего предыдущий на одном уровне вложенности
+	</script>
 
 
 </body>
