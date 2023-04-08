@@ -12,3 +12,21 @@
 
 5.  Удалите добавленный узел
 */
+
+// 1
+const divContent = document.querySelector('.content');
+
+// 2
+const newP = document.createElement('p');
+// 3
+
+newP.textContent = 'Новый текстовый элемент';
+// 4
+
+divContent.appendChild(newP); // создаст новый дочерний элемент внутри divContent
+// 5
+divContent.remove(newP);
+
+divContent.removeChild(newP); // С уточнением что это дочерний элемент )
+
+
