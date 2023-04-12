@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<title>Lection-8</title>
+</head>
+
+<body>
+	<!-- <button onclick="console.log('Hello click HTML!')" class="button">Buy</button> -->
+	<!-- <button class="button">Buy 1</button>
+	<button class="button">Buy 2</button>
+	<button class="button">Buy 3</button> -->
+	<!-- <div onclick="console.log('Hello click HTML!')" class="div-button">Buy 2</div> // Принцип работы одинаковый и для button и для a и для div -->
+	
+	<script>
+
+		// const buttonEL = document.querySelector('.button');// Найти кнопку в DOM
+
+		/*
+				// Назанчим счётчик событий через переменную
+				let countEvent = 0;
+				buttonEL.onclick = function () { // с помощью функции можно назначить несколько действий при одном событии
+					console.log('Click js Button');
+					countEvent++;
+					console.log(`Click js Button ${countEvent}`);
+				}
+		 */
+		/*
+				// Самодельная функция onclick
+				let count = 0;
+				const click = function () {
+					console.log('Click js Button');
+					count++;
+					console.log(`Нажатий ${count}`);
+				}
+				// такая функция вызывается без ()
+				// buttonEL.onclick = click;
+		
+				// Самодельная функция может вызываться из .addEventListener() вместо встроенной колбек функции своя колбек функция
+				buttonEL.addEventListener('click', click);
+		 */
+
+
+		// onclick в атрибутах к тегу в HTML будет срабатывать первее чем в JS и оба они работать не могут
+
+		/*
+						// .addEventListener() прослушиватель событий - встроеная колбек функция для событий. С помощью сниппетов и emmet ae выдаёт всю структуру этой функции
+						buttonEL.addEventListener('click', function (e) { // e - это event ( событие )
+							console.log('click add');
+						});
+						buttonEL.addEventListener('click', function (e) {
+							console.log('click add two');
+						});
+						// Обработчики событий могут работать вместе , тоесть можно навешать несколько действий на одно событие
+		*/
+
+		</script>
+		
+<!-- Делегирование событий. eventTarget и event.currentTarget
+<ul class="menu">
+	<li>Item 1</li>
+	<li>Item 2</li>
+	<li>Item 3</li>
+</ul> -->
+<!-- 
+<script>
+//  Делегирование событий. eventTarget и event.currentTarget их отличия , на примере с ul li
+const menu =document.querySelector('.menu');
+// создадим стрелочную функцию nfn
+const nameFunction = (e) => { // создаём функцию для делегирования событий
+	console.log(e.target, e.currentTarget); // ( <li>Item n</li> , <ul class="menu"> ) - выдаст консоль
+}
+
+menu.addEventListener('click',nameFunction); // так как функция nameFunction стрелочная , и обьявлена в переменную , обработчик должен вызываться строго после функции
+</script>
+
+<script>
+//  Делегирование событий. eventTarget и event.currentTarget 
+/* 
+	const buttons = document.querySelectorAll('.button'); // qs - emmet вызовет querySelector
+
+		buttons.forEach(element => {
+			element.addEventListener('click', function (event) {
+				console.log(event.target); 
+			});
+		});
+ */
+	</script>
+ -->
+<!-- 
+События 	DomContentLoaded и load - события прогрузки
+<h1>Lorem, ipsum dolor.</h1>
+<script>
+// События 	DomContentLoaded и load - события прогрузки
+// DomContentLoaded - используется для прогрузки отдельного элемента DOM
+// А load - используется для прогрузки всей страницы
+window.addEventListener('load', function (e) {
+	console.log('Loaging complete!');
+});
+
+	document.addEventListener('DomContentLoaded', function (e) {
+		console.log('loaded');
+	});
+</script>
+ -->
+
+<!-- Событие mouseover и mouseleave-->
+<!-- Событие keydown-->
+ <!-- функция preventDefoult() -->
+ <!-- Копирование элемента . Событие copy-->
+ <!-- Событие resize -->
+ <!-- Событие input , для поля ввода -->
+ <!-- Событие submit , для полей-->
+
+<button class="button">Купить</button>
+<a href="https://translate.google.com/?hl=ru&sl=ru&tl=en&text=%D1%82%D0%B5%D0%BC%D0%B0&op=translate" class="link">yandex</a>
+<!-- Параграф для копирования -->
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore nam dolorem ratione temporibus omnis autem laudantium numquam, molestias quam, culpa dolor animi. Deserunt quia delectus libero? Temporibus, ab commodi. Quidem?</p>
+
+<!-- <input type="text"> -->
+
+<form action="#">
+	<input type="text" class="unput">
+	<button type="submit">Go</button>
+	<div class="error"></div> <!-- блок для текстового сообщения , отправляемого при отправке пустого поля -->
+</form>
+
+<script>
+	// События mouseover и mouseleave
+	// mouseover - отслеживает наведение курсором на элемент
+	// mouseleave - отслеживат уберание курсора от элемента
+/* 
+	const button = document.querySelector('.button');
+
+	button.addEventListener('mouseover', function (e) {
+		console.log('PUSH PUSH PUSH');
+	});
+	button.addEventListener('mouseleave', function (e) {
+		console.log('КУДА ?!');
+	});
+	 */
+</script>
+
+<script>
+	/* 
+// Событие keydown - отслеживает нажатия на клавиатуре
+// Есть ещё keyup и keypress
+window.addEventListener('keydown', function (e) { // window - используем для всей страницы
+	console.log(e.key); // e.key , оставит только значения с клавитары
+});
+ */
+</script>
+
+<script>
+	/* 
+// функция preventDefoult()
+// preventDefoult() - останавливает переход на другую страницу
+const link = document.querySelector('.link');
+link.addEventListener('click', function (e) {
+	e.preventDefault();
+	console.log('hello link');
+});
+ */
+</script>
+
+<script>
+	/* 
+//  Копирование элемента. copy 
+// С помощью ctrl+c на странице , любой учаток lorem в параграфе для копирования будет скопирован в консоль
+
+document.addEventListener('copy', function (e) {
+	const copyText = document.getSelection().toString();
+	console.log(copyText);
+});
+ */
+</script>
+
+<script>
+/* 
+// Событие resize
+// resiae - событые изменения размеров страницы. Используется для адаптивности 
+window.addEventListener('resize', (e) =>{
+	console.log('resize');// В Devtools , при изменени ширины экрана , каждое изменние будет записано в консоль
+});
+ */
+</script>
+
+<script>
+/* 
+	// Событие input , для поля ввода
+	const inputEl = document.querySelector('input');
+
+	inputEl.addEventListener('input',  (e)=> {
+		// console.log(e.target.value); // Выведет в консоль все значения вводимые в поле ввода
+		if (Number(e.target.value) === 123) { // Так же можно использовать это событие для проверки данных
+			console.log('True');
+		} else {
+			console.log('false');
+		}
+	});
+ */
+</script>
+<script>
+	// Событие submit (отправки данных)
+	const inputText = document.querySelector('input');
+	const formRun = document.querySelector('form');
+	const errorEl = document.querySelector('.error');
+	// Для подтверждения о том что поле не должно быть пустым
+	formRun.addEventListener('submit', (e)=> {
+		if (inputText.value.trim() === '') {// если поле ввода пустое или с пробелами
+			e.preventDefault();// останавливается событие отправки функцией preventDefault()
+			errorEl.textContent = 'The field must not be empty'; // выводится сообщение об ошибке
+		};
+	});
+</script>
+</body>
+
+</html>
