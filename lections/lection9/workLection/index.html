@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lection-9</title>
+</head>
+
+<body>
+
+	<!-- 
+	: Event.stopPropagation() и
+Event.stopImmediatePropagation().
+
+	<form class="form">
+		<label><input type="radio" name="propagation-control" value="stopPropagation">Stop propagation</label>
+		<label><input type="radio" name="propagation-control" value="stopImmediatePropagation">Stop Immediate
+			propagation</label>
+	</form>
+	<ul>
+		<li>Первый</li>
+		<li>Второй</li>
+		<li>Третий</li>
+	</ul>
+	<script>
+		const form = document.querySelector('.form');
+		const list = document.querySelector('ul');
+		list.addEventListener('click', (e) => {
+			console.log('В первом UL в фазе захвата')
+			const propagationControlMethodName = form.elements['propagation-control'].value;
+			console.log(propagationControlMethodName);
+			if (propagationControlMethodName) {
+				e[propagationControlMethodName]()
+			};
+		}, true);
+		list.addEventListener('click', () => {
+			console.log('Во втором UL в фазе захвата');
+		}, true);
+		list.addEventListener('click', () => {
+			console.log('В первом UL в фазе всплытия');
+		});
+		Array.from(list.children).forEach((child) => {
+			child.addEventListener('click', () => {
+				console.log('В каждом LI в фазе всплытия');
+			});
+		});
+	</script>
+ -->
+
+
+	<!-- input chechbox и форма отправки данных -->
+	<!-- 
+	<form class="form" action="#">
+		<h2>форма</h2>
+		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid ab repellendus eos deleniti rerum quos nesciunt.
+			Maiores officia vero distinctio, beatae unde aspernatur libero facere, consequatur voluptatem accusamus quia
+			nesciunt.</p>
+		<input id="checkbox" type="checkbox" class="check"> это сам checkbox
+		<label for="checkbox"> <!-- А это текст рядом с ним 
+			Согласен с условиями
+		</label>
+		<br>
+		<div class="error"></div>
+		<button type="submit">отправить</button>
+	</form>
+
+	<script>
+		const inputEl = document.querySelector('.check'); // Нашли именно поле ввода chechbox
+		const formEl = document.querySelector('.form');
+		const errorEl = formEl.querySelector('.error');
+		inputEl.addEventListener('click', function (e) { // Вешаем на chechbox событие ( при клике ) 
+			const target = e.target; // input chechbox записывается в переменную , так назначается цель события ( при клике на поле ввода с типом checkbox в данном случае) , свойством event.target 
+			// console.log(target.value);// .value покажет значение input chechbox ( весь тег из html)
+			console.log(target.checked); // .checked - состояние input chechbox ( true или false)
+		});
+		// создадим событие для отправки данных из формы
+		/* 
+				formEl.addEventListener('submit', function (e) { // при отправки данных из формы
+					if (inputEl.checked) { // если checkbox в состоянии true ( то есть включен ) данные уходят в backEnd
+						console.log('good');
+					} else { // если false ( то есть не влючен ) , событие отправки данных прерыватеся
+						errorEl.textContent = 'Нужно поставить галочку';
+						console.log('не поставлена галочка');
+						e.preventDefault();
+					}
+				});
+		 */
+		// Сокращённая запись условия через тернарный оператор
+		formEl.addEventListener('submit', function (e) { // при отправки данных из формы
+			console.log(inputEl.checked ? 'good' : 'не поставлена галочка');
+		});
+	</script>
+ -->
+	<!-- Генерация событий, пользовательские события -->
+
+	<!-- 
+	<button>Кликни меня!</button>
+
+	<script>
+		// Это счётчик кликов мыши пользователем по странице
+		const eventOptions = { bubbles: true, cancelable: true }; // переменная с опциями фаз события
+		const event = new Event('click', eventOptions); // С помощью конструктора обьекта создаём новое событие
+		event.view = window; // Сдесь указываем облать применения события через своство wiew - область видимости. ( область применения обьект window тоесть вся страница)
+
+		const mouseEvent = new MouseEvent('click', { // не понятна запись
+			...eventOptions,
+			view: window,
+		});
+		document.addEventListener('click', (event) => {
+			console.log(event.isTrusted) // что за .isTrusted ??
+		});
+		const button = document.querySelector('button');
+		button.dispatchEvent(event);
+		button.dispatchEvent(mouseEvent);
+		button.click(); // click() - метод для генерации встроеного пользовательского события
+	</script>
+ -->
+
+	<!-- Как браузер использует DOM пример с выпадающим списком городов -->
+	<!-- 
+	<style>
+		.select__error {
+			border: 1px solid red;
+		}
+	</style>
+
+
+	<form action="city.html" class="form">
+		<div>
+			<label for="select">City</label>
+			<select name="select" id="select" class="select">
+				<option value="city" class="option">Выберайте город...</option>
+				<option value="Krasnodar" class="option">Краснодар</option>
+				<option value="Rostov" class="option">Ростов</option>
+				<option value="Stavropol" class="option">Ставрополь</option>
+				<option value="Sochi" class="option">Сочи</option>
+				<option value="Maykop" class="option">Майкоп</option>
+			</select>
+		</div>
+	</form>
+	<button type="submit" class="button">Отправить</button>
+
+	<script>
+		const formEl = document.querySelector('.form');
+		const selectEl = formEl.querySelector('.select'); // Лучше искать элемент в DOM по уже найденому , так быстрее
+		const buttonEl = document.querySelector('.button');
+
+		buttonEl.addEventListener('click', function (e) { // вешаем событие по клику от кнопки
+			console.log(selectEl.value); // У выподающего списка <select> есть своё значение
+			// но для того чтобы в консоли увидеть содержимое , нежно остановить отправку , иначе данные уходят по адресу	
+			e.preventDefault();
+			// С помощью if сделаем так чтобы выпадающий список подсвечивался красным , если не выбран город
+			if (selectEl.value === 'city') {
+				selectEl.classList.add('select__error');
+			} else {
+				selectEl.classList.remove('select__error');
+				return;
+			}
+		});
+	</script>
+ -->
+
+	<!-- Как браузер использует DOM пример с рейтингом ( звёзды ) -->
+
+	<!-- ГДЕ КОД?! -->
+
+	<script src="script.js"></script>
+</body>
+
+</html>
