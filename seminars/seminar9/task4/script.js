@@ -5,3 +5,14 @@
 2. При вводе текста в поле ввода необходимо чтобы текст внутри заголовка менятся на введенный в поле ввода
 */
 
+const changeHeading = () => {
+	const input = document.getElementById('input');
+	const heading = document.getElementById('heading');
+	heading.innerText = input.value; // К созданному элементу , с помощью свойства innerText , передаём значения введённые пользователем в поле ввода
+}
+
+const inputEl = document.getElementById('input'); // Пойманный внутри стрельчной функции input будет работать только внутри её области видимости , поэтому поле ввода нужно словить ещё раз , и сделать глобальной переменной
+
+inputEl.addEventListener('input', changeHeading);
+// Вся конструкция работает синхронно. то есть вводимый пользопателем текст сразу же отображается в h1 на странице
+
