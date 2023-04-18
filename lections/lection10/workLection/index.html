@@ -6,11 +6,236 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Lection-10</title>
+	<!-- Для работы с шаблоном в js так же можно задавать стили -->
+	<style>
+		.product-box{
+			display: flex;
+			justify-content: center;
+			gap:32px;
+			flex-wrap: wrap;
+		}
+		.product{ /* Причём этого элемента нет в html разметке , он есть только в шаблоне js */
+			width:250px;
+			border: 1px solid #000;
+			padding: 16px;
+		}
+	</style>
 </head>
 
 <body>
+	<!-- Работа с данными и переменными в формате JSON -->
+	<!-- Пример с карточками товаров в интернет магазине -->
+	<!-- 
+	<div class="product">
+		<img class="product__image" src="photo.jpg" alt="photo">
+		<div class="product__content">
+			<a class="product__name" href="product.html">product name</a>
+			<p class="product__text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+			<p class="product__price">55</p>
+		</div>
+	</div>
+	<div class="product">
+		<img class="product__image" src="photo.jpg" alt="photo">
+		<div class="product__content">
+			<a class="product__name" href="product.html">product name</a>
+			<p class="product__text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+			<p class="product__price">55</p>
+		</div>
+	</div>
+ -->
 
-	<script src="script.js"></script>
+	<!-- Шаблонизация -->
+<!-- 
+<div class="product-box">
+	<div class="product">
+		<img class="product__image" src="photo.jpg" alt="photo">
+		<div class="product__content">
+			<a class="product__name" href="product.html">product name from HTML</a>
+			<p class="product__text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+			<p class="product__price">55</p>
+		</div>
+	</div>
+</div>
+ -->
+ <div class="product-box"></div>
+<!-- При созданном шаблоне элемента в JS html структура не нужна вовсе -->
+
+		<script>
+			/*
+					// Обычные решения для изменения данных в карточке товара ( не удобно , и легко запутаться)
+			
+					// let productName = 'New product name';
+					const productName = ['New product name', 'product name 2'];
+					let productPrice = 70;
+			
+					const productNameLink = document.querySelector('.product__name');
+					const productsPrice = document.querySelector('.product__price');
+			
+					productNameLink.textContent = productName;
+					productsPrice.textContent = productPrice;
+					 */
+		</script>
+
+		<script>
+			// Решение об изменении данных через обьекты
+			/* 
+					const productData = {       // Словом Data обычно обозначают данные которые приходят из backEnd
+						name: 'Product name object',
+						price: 80
+					};
+			 */
+			// самое идеальное решение для передачи данных это обьект из массивов
+
+			// const productData = [
+			// 	{
+			// 		name: 'Product name object',
+			// 		price: 80
+			// 	}, {
+			// 		name: 'Product name 2 object',
+			// 		price: 50
+			// 	}
+			// ];
+
+			// const productNameLink = document.querySelector('.product__name');
+			// const productsPrice = document.querySelector('.product__price');
+
+			// productNameLink.textContent = productData.name;// таким образом подтягиваются данные из обьекта к тегам html
+			// productsPrice.textContent = productData.price;
+
+		</script>
+
+		<script>
+// Шаблонизация
+
+
+// Формирование данных для заполнения множества таких карточек поваров
+// Обьект Data - данные для карточки товара
+// Для того чтобы передать данные из этого обьекта , нужно в шаблон ( написаный ниже ) перенести обращение к этому обьекту по соответствующему ключу
+// Если объект разместить ниже чем шаблон , обращения к обьекту срабатывать не будут .
+/* 
+const productData = { 
+				src :'jsImg.png',
+				alt:'image fron object data',
+				name : 'Product name from OBJECT DATA',
+				link : 'product.html',
+				description : 'Product description from OBJECT DATA',
+				price: 21000
+			}
+ */
+// Такие данные обычно хранятся в МАССИВЕ ОБЪЕКТОВ. В таком виде они приходят из backEND
+const productsData = [
+	{ 
+				src :'jsImg.png',
+				alt:'image fron object data',
+				name : 'Product name from OBJECT DATA',
+				link : 'product.html',
+				description : 'Product description from OBJECT DATA',
+				price: 21000
+	},
+	{ 
+				src :'jsImg2.png',
+				alt:'New image fron object data',
+				name : 'New Product name from OBJECT DATA',
+				link : 'product2.html',
+				description : 'New Product description from OBJECT DATA',
+				price: 11000
+	},
+	{ 
+				src :'jsImg3.png',
+				alt:'New image fron object data 3',
+				name : 'New Product name from OBJECT DATA 3',
+				link : 'product3.html',
+				description : 'New Product description from OBJECT DATA 3',
+				price: 31000
+	}
+	];
+
+// Для того чтобы сформировать(создать) множество элементов в соответствии с количеством обьектов в массиве DATA ( из backEnd ) нужно шаблон, создающий элемент на странице(карточки товаров), добавить в цикл forEach для работы с массивом
+
+
+productsData.forEach(productData => { 
+	//productsData - это данный из backend а productData это каждая карточка товара ( или элемент массива )
+	const productBox = document.querySelector('.product-box');
+
+		const productEl = document.createElement('div');
+		productEl.classList.add('product');
+
+		const productImage =	document.createElement('img');
+
+		productImage.classList.add('product__image'); 
+		productImage.setAttribute('alt',productData.alt); 
+		productImage.src = productData.src; 
+
+		const productContent = document.createElement('div');
+		productEl.classList.add('product__content');
+
+		const productLink = document.createElement('h4'); // Любое изменение в шаблоне , изменит все элементы.
+		productLink.textContent = productData.name;
+		productLink.classList.add('product__name'); 
+		productLink.href = productData.link; 
+
+		const productDescripton = document.createElement('p');
+		productDescripton.textContent = productData.description;
+		productDescripton.classList.add('product__text'); 
+
+const productPrice = document.createElement('p');
+		productPrice.textContent = productData.price;
+		productPrice.classList.add('product__price'); 
+
+		productEl.appendChild(productImage);
+		productEl.appendChild(productContent);
+		productContent.appendChild(productLink); 
+		productContent.appendChild(productDescripton);
+		productContent.appendChild(productPrice); 
+
+		productBox.appendChild(productEl);
+});
+
+
+
+
+/* 
+// Создание шаблона элемента ( как в html разметке)
+		const productBox = document.querySelector('.product-box');// Ловим блок с карточками товаров в JS
+// Шаблон карточки товара из html
+		const productEl = document.createElement('div');// Создаём такой же div как и в карточке товаров
+		productEl.classList.add('product'); // Добавляем ему такой же класс
+
+		const productImage =	document.createElement('img');// Создаём тег img , как в карточке товара
+// Картинка
+		productImage.classList.add('product__image'); // Добавляем ей класс такой де как в HTML
+		productImage.setAttribute('alt',productData.alt); // Добавляем ей атрибуты 
+		productImage.src = productData.src; // Сюда будет добавляться url адрес (откуда будет браться картинка)
+// Блок с описанием товара
+		const productContent = document.createElement('div');// Создаём такой же div для описания товара
+		productEl.classList.add('product__content'); // Добавляем ему такой же класс как в html
+// Ссылка в блоке с описанием товара (Имя товара)
+		const productLink = document.createElement('a');// Создаём такое же имя товара в виде ссылки
+		productLink.textContent = productData.name; // Добавим содержимое блока ( то что будет написано )
+		productLink.classList.add('product__name'); // Добавляем ему такой же класс как в html
+		productLink.href = productData.link; // Сюда будет добавляться адрес адрес перехода на товар
+// Описание товара в блоке с описанием
+		const productDescripton = document.createElement('p');// Создаём такой же текстовый блок товара для описания
+		productDescripton.textContent = productData.description;// Описание
+		productDescripton.classList.add('product__text'); // Добавляем ему такой же класс как в html
+// Цена товара
+const productPrice = document.createElement('p');// Создаём такой же текстовый блок товара для цены товара
+		productPrice.textContent = productData.price;// Цена
+		productPrice.classList.add('product__price'); // Добавляем ему такой же класс как в html
+
+		// Дабвление всех элементов основному шаблонному блоку
+		productEl.appendChild(productImage); // Добавляем элемент img дочерним к элементу шаблонной карточки товаров
+		productEl.appendChild(productContent); // Добавляем элемент c описанием товара дочерним к элементу шаблонной карточки товаров
+		productContent.appendChild(productLink); // Добавляем элемент c именем товара дочерним к ЭЛЕМЕНТУ С ОПИСАНИЕМ шаблонной карточки товаров
+		productContent.appendChild(productDescripton); // Добавляем элемент c описанием товара дочерним к ЭЛЕМЕНТУ С ОПИСАНИЕМ шаблонной карточки товаров
+		productContent.appendChild(productPrice); // Добавляем элемент c ценой товара дочерним к ЭЛЕМЕНТУ С ОПИСАНИЕМ шаблонной карточки товаров
+
+// Конец Шаблона карточки товара из html
+		productBox.appendChild(productEl);// Добавляем шаблон созданный в JS в структуру HTML страницы
+ */
+
+		</script>
+		<script src="script.js"></script>
 </body>
 
 </html>
