@@ -9,8 +9,20 @@
 </head>
 
 <body>
-	src="https://cdn.jsdelivr.net/npm/yandex-metrica-watch/watch.js"
-	<audio src="https://cdn.jsdelivr.net/npm/yandex-metrica-watch/watch.js"></audio>
+	<audio class="audio" controls
+		src="https://dl3s2.zvuch.com/aHR0cDovL2YubXAzcG9pc2submV0L21wMy8wMDMvNzI3LzQ0My8zNzI3NDQzLm1wMw=="
+		preload="auto"></audio>
+
+	<script>
+		const audioEl = document.querySelector('.audio');
+		audioEl.addEventListener('play', function (e) {
+			console.log('Нажата кнопка воспроизведения в проигрывателе');
+			console.log(audioEl);
+		});
+		audioEl.addEventListener('pause', function () {
+			console.log('Нажата кнопка остановки воспроизведения');
+		});
+	</script>
 </body>
 
 </html>
