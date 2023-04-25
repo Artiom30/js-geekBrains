@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lection-12-geolocation</title>
+</head>
+
+<body>
+	<!-- Геолокация -->
+	<script>
+		// console.log(window.navigator); // свойство обьекта window для геолокации
+		// Проверка на возможность определения геолокации устройства
+		/*
+				if ('geolocation' in navigator) {
+					console.log('Есть');
+				} else {
+					console.log('Нету');
+				};
+				 */
+		// Как получить текущее местоположение
+		/* 
+				navigator.geolocation.getCurrentPosition((position) => {
+					console.log(position);
+					const { latitude, longitude } = position.coords; // latitude, longitude это координаты
+					console.log('Координаты устройства', latitude, longitude);
+				});
+		 */
+		// Функция watchPosition() для отслеживания изменения местоположения устройства ( нужда переменная для хранения динамических данный )
+		let watch = navigator.geolocation.watchPosition(({ coords }) => {
+			console.log('Текущее местоположение', coords.latitude, coords.longitude);
+		});
+		// Метод clearWatch() позволяет отписаться от получаемых данных
+		navigator.geolocation.clearWatch(watch);
+
+		// Обработка ошибок определения местоположения
+		const handlePositionError = (error) => {
+			switch (error.code) {
+				case 1: // код ошибки
+					console.log('Пользователь ограничил доступ к местоположению.');
+					break;
+				case 2:
+					console.log('Ошибка устройства определения местоположения.');
+					break;
+				case 13:
+					console.log('Достигнут тайм-аут.');
+					break;
+				default:
+					console.log('Местоположение не доступно');
+					break;
+			};
+		};
+	</script>
+</body>
+
+</html>

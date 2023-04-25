@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lection-12-Drag-and-drop</title>
+	<style>
+		body {
+			font-family: "Benton Sans", "Helcetica Neue", Arial, Helvetica, sans-serif;
+			margin: 2em;
+		}
+
+		.conteiner {
+			display: grid;
+			grid-template-columns: repeat(5, 1fr);
+			gap: 10px;
+		}
+
+		.box {
+			border: 3px solid #666;
+			border-color: #ddd;
+			border-radius: .5em;
+			/* забыл что за точка перед em */
+			padding: 10px;
+			cursor: move;
+		}
+
+		.box.over {
+			/* что за .over ? */
+			border: 3px dotted #666;
+			/* dotted - пунктирный */
+		}
+
+		[draggable] {
+			/* Обращение ко всем элементам по атрибуту draggable */
+			user-select: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="conteiner">
+		<div draggable="true" class="box">A</div>
+		<div draggable="true" class="box">B</div>
+		<div draggable="true" class="box">C</div>
+	</div>
+
+	<script>
+		// Для того чтобы всегда понимать когда загрузилась страница ( интерфейс DOMElement ) стоит добавлять событие "DOMContentLoaded"
+		// Тоесть когда страница загрузилась начинаем делать ...
+		document.addEventListener('DOMContentLoaded', function (e) { // загрузка страницы
+			let dragSrcEl = null; // Нужно обьявить переменную для хранения схваченого обьекта( В последствии будет обращение через this)
+
+			// Для того чтобы у области , в которой был забран элемент, была чем-то заполнена создаётся функция
+			function handleDragStart(e) {
+				this.style.opacity = '0.1'; // Захваченый блок становится прозрачным
+
+				dragSrcEl = this; //Присваиваем значение текущего элемента ,попавшего в функцию, переменной для хранения захваченного обьекта
+
+				// Для того чтобы произошло само перетягивание элемента с места на место необходимо в нужные функции добавить событие 'move' - именно оно отвечает за событие DnD
+				e.dataTransfer.effectAllowed = 'move';
+				e.dataTransfer.setData('text/html', this.innerHTML);  // для замены эелементов
+			};
+
+			function handleDragOver(e) {
+				if (e.preventDefault) {
+					e.preventDefault();// оставосить обработку события
+				};
+				// Элементы , перетягиваемые на странице могу содержать в себе какие либо события ( к примеру ссылки ). Чтобы при клике на перетягиваемый элемент не отработало событие , нужно его прервать 
+				e.dataTransfer = 'move'; //Функционал DnD
+
+				return false;
+			};
+
+			// Необходимо создать функции , для изменения внешнего вида элемента зоны падения drop, когда захваренный элемент будет в его области ( при событиях типа 'dragenter' и 'dragleave'). Делается это с помощью добавления и удаления класса( тили уже прописаны в CSS) элементу.  
+			function handleDragEnter(e) {
+				this.classList.add('over'); // Когда просходит событие 'dragenter' (захваченый элемент входит в область возможного сброса) , созаётся класс , который меняет внешний вид области падения 
+			};
+			function handleDragLeave(e) {
+				this.classList.remove('over'); // При выходе захваченным элементом 'dragleave' класс удаляется
+			};
+
+			// Нужна функция , возвращающая внешний вид захваченного элемента когда DnD закончится ( событие 'dragend') 
+			function handleDragEnd(e) {
+				this.style.opacity = '1'; // убрать прозрачность захваченного элемента
+
+				items.forEach(function (item) { // пробежаться по всем элементам Drag & Drop
+					item.classList.remove('over'); // И удалить все классы созданные для стилизации процесса DnD
+				});
+			};
+
+			// Нужно зачем-то остановить перенаправление браузера
+			function handleDrop(e) {
+				if (e.stopPropagination) {
+					e.stopPropagination(); // Останавливает перенаправление браузера.
+				}
+				if (dragSrcEl != this) { // если элементы не равны друг другу
+					dragSrcEl.innerHTML = this.innerHTML; // Добавляем новый html
+					this.innerHTML = e.dataTransfer.getData('text/html'); // для замены эелементов
+				};
+				return false;
+			};
+
+			// Необходимо поймать все блоки и на каждый блок повесить обработчики событий для Drag & Drop добавляя calback функцию написануую ранее
+			let items = document.querySelectorAll('.box'); // let - так как эти элементы могут меняться в процессе Drag & Drop 
+			items.forEach(function (item) {
+				item.addEventListener('dragstart', handleDragStart);
+				item.addEventListener('dragenter', handleDragEnter);
+				item.addEventListener('dragover', handleDragOver);
+				item.addEventListener('dragleave', handleDragLeave);
+				item.addEventListener('drop', handleDrop);
+				item.addEventListener('dragend', handleDragEnd);
+			});
+		});
+
+
+	</script>
+</body>
+
+</html>
