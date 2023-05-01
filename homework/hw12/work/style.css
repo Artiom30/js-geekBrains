@@ -254,4 +254,189 @@ a {
 	margin: 0 11px 0 0;
 }
 
+.product-btn {
+	display: block;
+	margin: 50px auto 0;
+	padding: 15px 39px;
+	outline: 1px solid #FF6A6A;
+	color: #F26376;
+	border: none;
+	background-color: #fff;
+}
+
+.product-btn:hover {
+	outline: 2px solid #5D5D5D;
+	color: #5D5D5D;
+}
+
+.product-btn:active {
+	background-color: #F16D7F;
+	color: #FFFFFF;
+	outline: 3px solid #FF6A6A;
+}
+
 /* ==== EndProducts==== */
+
+/* ====bonus-offer===== */
+.bonus-offer {
+	background-color: #222224;
+	margin: 96px auto 0;
+}
+
+.bonus-offer-shell {}
+
+.bonus-offer-list {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 30px;
+}
+
+.bonus-offer-item {
+	margin: 104px auto 104px;
+	max-width: 360px;
+	width: 100%;
+	min-height: 134px;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+	align-items: center;
+}
+
+.bonus-offer-item-link {
+	display: block;
+}
+
+.bonus-offer-item-svg {
+	fill: #F16D7F;
+	display: block;
+}
+
+.bonus-offer-item-link:hover svg {
+	fill: #9F9F9F;
+}
+
+.bonus-offer-item-link:active svg {
+	fill: #fff;
+
+}
+
+.bonus-offer-item-title {
+	display: block;
+	font-weight: 400;
+	font-size: 19.96px;
+	line-height: 24px;
+	color: #FBFBFB;
+	text-align: center;
+}
+
+.bonus-offer-item-descrption {
+	display: block;
+	max-width: 298px;
+	width: 100%;
+	font-weight: 300;
+	font-size: 13.972px;
+	line-height: 17px;
+	text-align: center;
+	color: #FBFBFB;
+	text-align: center;
+}
+
+/* ====ENDbonus-offer===== */
+
+/* ====card-items==== */
+.card-items {}
+
+.card-items-heading {
+	margin: 96px auto 0;
+	margin-left: 457px;
+	font-size: 30px;
+	line-height: 36px;
+	text-transform: capitalize;
+}
+
+
+.product-box {
+	padding-top: 64px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: flex-start;
+	gap: 40px;
+}
+
+.product {
+	position: relative;
+}
+
+.btn__delete {
+	position: absolute;
+	top: 28px;
+	right: 22px;
+	width: 18px;
+	height: 18px;
+	font-size: 0;
+	border: none;
+	background: none;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url(img/krestick.svg);
+	cursor: pointer;
+}
+
+.product__content {
+	display: flex;
+	width: 652px;
+	box-shadow: 17px 19px 24px rgba(0, 0, 0, 0.13);
+}
+
+.product__img {
+	width: 262px;
+}
+
+.product__desc {
+	/* font-family: 'Lato'; */
+	/* font-style: normal; */
+	margin-top: 22px;
+	margin-left: 31px;
+	font-weight: 400;
+	font-size: 24px;
+	line-height: 29px;
+	color: #575757;
+}
+
+.product__name {
+	margin-bottom: 42px;
+	width: 262px;
+	text-transform: uppercase;
+	font-size: 24px;
+	line-height: 29px;
+	color: #222222;
+}
+
+.product__price {
+	font-style: normal;
+	font-weight: 400;
+	font-size: 22px;
+	line-height: 26px;
+	color: #EF5B70;
+}
+
+.product__qty {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	gap: 24px;
+}
+
+.input__quantity {
+	width: 44px;
+	font-weight: 400px;
+	font-size: 18px;
+	line-height: 22px;
+	text-align: center;
+	color: #656565;
+	border: 1px solid #EAEAEA;
+}
+
+/* ====ENDcard-items==== */

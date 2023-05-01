@@ -4,9 +4,12 @@ const products = JSON.parse(productsData);
 
 const productsBox = document.querySelector('.product-card-list');
 
-products.forEach(({ image, name, description, price }) => {
+const cardItems = document.querySelector('.card-items');
+cardItems.style.display = 'none';
+
+products.forEach(({ image, name, description, price, color, size, quantity }) => {
 	const productCard = `
-	<li class="product-card-item">
+	<li data-id="${image}" class="product-card-item">
 	<article class="product-card-brand">
 		<div class="product-item-photo-wrp">
 			<a href="#" class="product-card-item-link">
@@ -29,28 +32,103 @@ products.forEach(({ image, name, description, price }) => {
 </li> 
 `;
 	productsBox.insertAdjacentHTML('beforeend', productCard);
+	// Как к каждой карточке добавить данные "color, size, quantity" чтобы потом их перекинуть в корзину с товарами
 });
 
+let counterAddProducts = 0;
 const basketEl = document.querySelector('.header-basket-link');
 const addProdutBtns = document.querySelectorAll('.product-item-btn');
 
-let counterAddProducts = 0;
+window.addEventListener('click', function (e) {
+
+	if (e.target !== addProdutBtns) {
+		const product = e.target.closest('.product-card-item');
+		const productInfo = {
+			image: product.querySelector('.product-card-photo').getAttribute('src'),// Не могу понять что он хочет из этой строки ( ошибка )
+			name: product.querySelector('.product-card-item-name').innerText,
+			price: product.querySelector('.product-card-item-price').innerText
+		};
+		const productEl = `
+	<div class="product">
+	<button class="btn__delete" type="button">Удалить</button>
+	<div class="product__content">
+			<img class ="product__img"src="${productInfo.image}" alt="${productInfo.name}">
+			<div class="product__desc">
+				<h2 class="product__name">${productInfo.name}</h2>
+				<p class="product__price_label">Price: <span class="product__price">${productInfo.price}</span></p>
+				<p class="product__color">Color: ${products.color}</p>
+				<p class="product__size">Size: ${products.size}</p>
+				<div class="product__qty">
+				<label class="input__label">Quantity:</label>
+				<input class="input__quantity" type="number" min = "0" value="1" max="${products.quantity}">
+				</div>
+				</div>
+				</div>
+	</div>
+	`;
+		document.querySelector('[class="card-items product-box"]').insertAdjacentHTML('beforeend', productEl);
+	};
+
+	// Для удаления карточки из корзины и изменения значения счётчика у иконки корзины
+	const deleteButtons = document.querySelectorAll('.btn__delete');
+	if (e.target !== deleteButtons) {
+		deleteButtons.forEach(button => {
+			button.addEventListener('click', () => {
+				const product = button.closest('.product');
+				product.remove();
+			});
+		});
+	};
+	deleteButtons.forEach(deleteProductButton => {
+		deleteProductButton.addEventListener('click', counterDeteteProductsFunction);
+	});
+	// Для того чтобы увидеть корзину
+	if (e.target !== document.querySelector('.product-btn')) {
+		document.querySelector('.product-btn').addEventListener('click', wieingProductItems);
+	};
+});
+
+// Функция для того польгователь увидел содержимое корзины( после нажатия на кнопку "Browse All Product")
+const wieingProductItems = () => {
+	if (cardItems.style.display === 'none') {
+		cardItems.removeAttribute('style');
+	};
+};
+
+// Функция для добавления значений в счётчик товаров ( иконка корзины )
 const counterAddProductsFunction = () => {
 	counterAddProducts++;
+	alert('Your item has been added to your cart');
 	if (counterAddProducts === 1) {
 		const amountProducts = document.createElement('span');
 		amountProducts.textContent = counterAddProducts;
 		amountProducts.classList = 'header-basket-amount-produts';
 		basketEl.insertAdjacentElement('beforeend', amountProducts);
-	} else {
+	} else if (counterAddProducts > 1) {
 		document.querySelector('.header-basket-amount-produts').textContent = counterAddProducts;
 	};
 };
-
+// Функция для удаления значений в счётчик товаров ( иконка корзины ) 
+const counterDeteteProductsFunction = () => {
+	counterAddProducts--;
+	alert('Product removed from product list');
+	if (counterAddProducts < 1) {
+		document.querySelector('.header-basket-amount-produts').remove();
+		counterAddProducts = 0;
+		cardItems.style.display = 'none';
+	} else {
+		document.querySelector('.header-basket-amount-produts').textContent = counterAddProducts;
+	};
+}
 addProdutBtns.forEach(addButtons => {
 	addButtons.addEventListener('click', counterAddProductsFunction);
 });
-basketEl.addEventListener('click', () => {
-	document.querySelector('.header-basket-amount-produts').remove();
-	counterAddProducts = 0;
-});
+
+
+
+
+
+
+
+
+
